@@ -21,6 +21,13 @@ import { CourseDialogComponent } from "../course-dialog/course-dialog.component"
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
 })
+
+// in un componente scritto così c'è troppa logica
+// si inietta l'HttpService e si fa la chiamata qui, si gestiscono i dati ricevuti qui
+// il componente non dovrebbe sapere da dove provengono i dati, dovrebbe solo utilizzarli
+// la logica descritta qui non è riutilizzabile da nessuna altra parte
+// se cambiassimo i dati in beginner ed advanced questi cambiamenti sarebbero disponibili solo all'interno di questo componente
+// bisognba fare in modo che gli stessi dati, ed i loro cambiamenti, siano disponibili in tutta l'app
 export class HomeComponent implements OnInit {
   beginnerCourses: Course[];
 
@@ -39,6 +46,7 @@ export class HomeComponent implements OnInit {
       const courses: Course[] = res["payload"].sort(sortCoursesBySeqNo);
 
       // tramite metodo filetr() ottengo 2 array secondo categoria
+      // il codice dovrebbe essere scritto in maniera tale da evitare callback innestate, in modo da evitare il cosiddetto callback hell
       this.beginnerCourses = courses.filter(
         (course) => course.category == "BEGINNER"
       );
