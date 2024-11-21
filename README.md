@@ -13,3 +13,5 @@ Please use Node 18 long-term support (LTS) version.
 ## [sort array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#syntax)
 
 ## [filter array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#syntax)
+
+## [shareReplay ooperator](https://rxjs.dev/api/operators/shareReplay)

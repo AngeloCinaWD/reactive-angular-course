@@ -3,11 +3,6 @@
 
   <mat-tab-group>
     <mat-tab label="Beginners">
-      <!-- <mat-card *ngFor="let course of beginnerCourses" class="course-card mat-elevation-z10"> -->
-      <!-- la variabile beginnersCourses non esiste più, esiste un Observable che emette un array di Course, dobbiamo quindi utilizzare il pipe async che fa sottoscrizione all'observable al quale si applica e ci restuitisce il value emesso, rendendolo utilizzabile direttamente nella view -->
-      <!-- stessa cosa per la proprietà advancedCourses -->
-      <!-- l'async pipe evita di avere problemi di leak di memoria in caso non annullassimo la sottoscrizione all'observable, che continuerebbe ad emettere valori se non è completato o se non va in errore, l'async annulla la sottoscrizione quando il componente viene distrutto -->
-      <!-- nel caso di Observable prodotti dall'HttpClient non si avrebbero comunque problemi perchè emettono un solo valore e poi si completano -->
       <mat-card
         *ngFor="let course of beginnerCourses$ | async"
         class="course-card mat-elevation-z10"
@@ -45,10 +40,6 @@
     </mat-tab>
 
     <mat-tab label="Advanced">
-      <!-- <mat-card
-        *ngFor="let course of advancedCourses"
-        class="course-card mat-elevation-z10"
-      > -->
       <mat-card
         *ngFor="let course of advancedCourses$ | async"
         class="course-card mat-elevation-z10"

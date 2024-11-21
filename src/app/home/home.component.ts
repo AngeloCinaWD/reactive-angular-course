@@ -23,56 +23,28 @@ import { CoursesService } from "../services/courses.service";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  // in un componente Observable-based le proprietà sono degli Observables
-  // derivati dall'observable courses$ e verranno sottoscritti ed utilizzati direttamente nella view tranmite pipe async
-  // beginnerCourses: Course[];
   beginnerCourses$: Observable<Course[]>;
-
-  // advancedCourses: Course[];
   advancedCourses$: Observable<Course[]>;
 
-  // l'HttpClient non serve più qui, serve iniettare il CoursesService
-  // constructor(private http: HttpClient, private dialog: MatDialog) {}
   constructor(
     private coursesService: CoursesService,
     private dialog: MatDialog
   ) {}
 
-  // spostiamo la logica che ora è nel componente in un service:
-  // ng g s services/courses --project reactive-angular-course --skip-tests
   ngOnInit() {
-    // chiamiamo il metodo per fetchare i Course dal BE implementato nel CoursesService
-    // il nostro componente non sa da dove provengono i dati, li riceve e basta
-    //questa non serve più, non chiamiamo direttamente da qui il BE
-    // this.http.get("/api/courses").subscribe((res) => {
-    //   const courses: Course[] = res["payload"].sort(sortCoursesBySeqNo);
-    //   this.beginnerCourses = courses.filter(
-    //     (course) => course.category == "BEGINNER"
-    //   );
-    //   this.advancedCourses = courses.filter(
-    //     (course) => course.category == "ADVANCED"
-    //   );
-    // });
-
-    // chiamiamo il metodo loadAllCourses e riceviamo un observable
-    // fino a che non facciamo il subscribe ad un observable non abbiamo il dato, l'observable emette il dato solo quando viene sottoscritto
-    // per coinvenzione si utilizza il dollaro alla fine di un nome di variabile per capire subito che si tratta di un Observable
-    // il sort dei Course lo facciamo una volta sola qui, dopo saranno già ordinati
     const courses$: Observable<Course[]> = this.coursesService
       .loadAllCourses()
       .pipe(map((courses) => courses.sort(sortCoursesBySeqNo)));
 
-    courses$.subscribe((val) => console.log(val));
-
-    // tramite map assegnamo a beginnersCourses$ un observable con un array di Course di sola categoria BEGINNER ordinati in modo ascendente secondo seqNo
+    // per questi 2 observables ho una chiamata http per ognuno, una per ogni sottoscrizione tramite async pipe
+    // per evitare che si faccia più di una chiamata dobbiamo fare in modo che dopo la prima subscription il risultato venga salvato e messo a disposizione delle altre subscriptions
+    // questo può essere fatto utilizzando l'operator RxJS shareReplay(), utilizzandolo nel pipe della request http nel metodo del service
     this.beginnerCourses$ = courses$.pipe(
-      map(
-        (courses) => courses.filter((course) => course.category === "BEGINNER")
-        // .sort(sortCoursesBySeqNo)
+      map((courses) =>
+        courses.filter((course) => course.category === "BEGINNER")
       )
     );
 
-    // stessa cosa per i corsi di categoria ADVANCED
     this.advancedCourses$ = courses$.pipe(
       map((courses) =>
         courses.filter((course) => course.category === "ADVANCED")
