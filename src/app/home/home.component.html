@@ -3,7 +3,7 @@
 
   <mat-tab-group>
     <mat-tab label="Beginners">
-      <mat-card
+      <!-- <mat-card
         *ngFor="let course of beginnerCourses$ | async"
         class="course-card mat-elevation-z10"
       >
@@ -36,11 +36,14 @@
             EDIT
           </button>
         </mat-card-actions>
-      </mat-card>
+      </mat-card> -->
+      <courses-card-list
+        [courses]="beginnerCourses$ | async"
+      ></courses-card-list>
     </mat-tab>
 
     <mat-tab label="Advanced">
-      <mat-card
+      <!-- <mat-card
         *ngFor="let course of advancedCourses$ | async"
         class="course-card mat-elevation-z10"
       >
@@ -71,7 +74,10 @@
             EDIT
           </button>
         </mat-card-actions>
-      </mat-card>
+      </mat-card> -->
+      <courses-card-list
+        [courses]="advancedCourses$ | async"
+      ></courses-card-list>
     </mat-tab>
   </mat-tab-group>
 </div>
