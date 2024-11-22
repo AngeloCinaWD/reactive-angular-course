@@ -3,7 +3,6 @@
 
   <mat-tab-group>
     <mat-tab label="Beginners">
-      <!-- mi metto in ascolto dell'evento custom CoursesChanged emesso dal componente in caso di modifica di un Course -->
       <courses-card-list
         [courses]="beginnerCourses$ | async"
         (coursesChanged)="reloadCourses()"

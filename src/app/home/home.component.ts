@@ -29,25 +29,9 @@ export class HomeComponent implements OnInit {
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit() {
-    // const courses$: Observable<Course[]> = this.coursesService
-    //   .loadAllCourses()
-    //   .pipe(map((courses) => courses.sort(sortCoursesBySeqNo)));
-
-    // this.beginnerCourses$ = courses$.pipe(
-    //   map((courses) =>
-    //     courses.filter((course) => course.category === "BEGINNER")
-    //   )
-    // );
-
-    // this.advancedCourses$ = courses$.pipe(
-    //   map((courses) =>
-    //     courses.filter((course) => course.category === "ADVANCED")
-    //   )
-    // );
     this.reloadCourses();
   }
 
-  // in questo metodo ci sposto il codice che è in onInit
   reloadCourses() {
     const courses$: Observable<Course[]> = this.coursesService
       .loadAllCourses()
