@@ -9,7 +9,9 @@ import { LoadingService } from "../services/loading.service";
 })
 export class LoadingComponent implements OnInit {
   // iniettiamo il LoadingService
-  constructor(private loadingService: LoadingService) {}
+  // constructor(private loadingService: LoadingService) {}
+  // per far si che il service sia utilizzabile anche nel template dobbiamo rendere la proprietà public
+  constructor(public loadingService: LoadingService) {}
 
   ngOnInit() {}
 }

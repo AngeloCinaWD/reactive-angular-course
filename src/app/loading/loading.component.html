@@ -2,6 +2,7 @@
 <!-- classe  per centrare lo spinner e per occupare tutto lo schermo-->
 <!-- questo spinner volgiamo attivarlo in qualsiasi parte dell'app, creando una sola istanza globale -->
 <!-- il componente loading lo andiamo a mettere nell'app.component.html -->
-<div class="spinner-container">
+<!-- vogliamo che il componenente sia visibile solo quando l'observable loading$ emetta true, utilizziamo il pipe async -->
+<div class="spinner-container" *ngIf="loadingService.loading$ | async">
   <mat-spinner></mat-spinner>
 </div>
