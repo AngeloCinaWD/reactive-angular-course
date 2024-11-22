@@ -14,4 +14,10 @@ Please use Node 18 long-term support (LTS) version.
 
 ## [filter array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#syntax)
 
-## [shareReplay ooperator](https://rxjs.dev/api/operators/shareReplay)
+## [shareReplay operator](https://rxjs.dev/api/operators/shareReplay)
+
+## [tap operator](https://rxjs.dev/api/operators/tap)
+
+## [filter operator](https://rxjs.dev/api/operators/filter)
+
+## [material dialog](https://material.angular.io/components/dialog/overview)
