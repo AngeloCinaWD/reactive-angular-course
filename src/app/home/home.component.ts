@@ -39,9 +39,17 @@ export class HomeComponent implements OnInit {
   }
 
   reloadCourses() {
+    // attivo lo spinner di caricamento
+    this.loadingService.loadingOn();
+
     const courses$: Observable<Course[]> = this.coursesService
       .loadAllCourses()
-      .pipe(map((courses) => courses.sort(sortCoursesBySeqNo)));
+      .pipe(
+        map((courses) => courses.sort(sortCoursesBySeqNo)),
+        // utilizzo l'operator RxJs finalize() per interrompere la visualizzazione dello spinner di caricamento
+        // questo operatore interviene quando l'observable completa o restituisce error
+        finalize(() => this.loadingService.loadingOff())
+      );
 
     this.beginnerCourses$ = courses$.pipe(
       map((courses) =>

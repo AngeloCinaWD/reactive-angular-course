@@ -23,3 +23,9 @@ Please use Node 18 long-term support (LTS) version.
 ## [material dialog](https://material.angular.io/components/dialog/overview)
 
 ## [material spinner](https://material.angular.io/components/progress-spinner/overview)
+
+## [rxjs Subject](https://rxjs.dev/api/index/class/Subject)
+
+## [rxjs BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject#behaviorsubject)
+
+## [finalize operator](https://rxjs.dev/api/operators/finalize#finalize)

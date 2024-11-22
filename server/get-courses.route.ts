@@ -8,11 +8,12 @@ export function getAllCourses(req: Request, res: Response) {
     return;
  */
 
+  // qui poosso incrementare ilo tempo di risposta del BE, in modo da poter vedere all'opera lo spinner di caricamento
   setTimeout(() => {
     // COURSES è un oggetto che contiene tante proprietà con values un oggetto
     // l'object.values restituisce un array contenente solo i values, quindi in questo caso il risultao è un array con tanti oggetti Course
     res.status(200).json({ payload: Object.values(COURSES) });
-  }, 200);
+  }, 2000);
 }
 
 export function getCourseById(req: Request, res: Response) {
