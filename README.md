@@ -21,3 +21,5 @@ Please use Node 18 long-term support (LTS) version.
 ## [filter operator](https://rxjs.dev/api/operators/filter)
 
 ## [material dialog](https://material.angular.io/components/dialog/overview)
+
+## [material spinner](https://material.angular.io/components/progress-spinner/overview)

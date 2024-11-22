@@ -16,6 +16,7 @@ import { HttpClient } from "@angular/common/http";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { CourseDialogComponent } from "../course-dialog/course-dialog.component";
 import { CoursesService } from "../services/courses.service";
+import { LoadingService } from "../services/loading.service";
 
 @Component({
   selector: "home",
@@ -26,7 +27,12 @@ export class HomeComponent implements OnInit {
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
 
-  constructor(private coursesService: CoursesService) {}
+  // vogliamo mostrare lo spinner di caricamento mentre vengono caricati i corsi dal BE
+  // per farlo inietiiamo il LoadingService
+  constructor(
+    private coursesService: CoursesService,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit() {
     this.reloadCourses();

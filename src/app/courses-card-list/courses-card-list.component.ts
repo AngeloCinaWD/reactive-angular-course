@@ -7,10 +7,9 @@ import { filter, tap } from "rxjs/operators";
 @Component({
   selector: "courses-card-list",
   templateUrl: "./courses-card-list.component.html",
-  styleUrl: "./courses-card-list.component.scss",
+  styleUrl: "./courses-card-list.component.css",
 })
 export class CoursesCardListComponent {
-  // input ed output si possono utilizzare per comunicare fra componenti solo quando uno è nel template dell'altro, cioè c'è una relazione child-parent diretta
   @Input()
   courses: Course[] = [];
 
