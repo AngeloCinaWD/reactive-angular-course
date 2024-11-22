@@ -19,4 +19,16 @@ export class CoursesService {
       shareReplay()
     );
   }
+
+  // metodo per modificare il corso, chiamata http in put
+  // accetta l'id del corso da modificare e i dati che devono essere cambiati
+  // ritorna un observable di tipo any
+  saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
+    return (
+      this.http
+        .put(`/api/courses/${courseId}`, changes)
+        // mi assicuro che non venga effettuata più di una request http anche in caso di più sottoscrizioni all'observable
+        .pipe(shareReplay())
+    );
+  }
 }
