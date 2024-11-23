@@ -1,0 +1,11 @@
+<!-- il template è costituito da un container di una lista di messaggi -->
+<!-- secondo il valore della proprietà showMessages mostriamo o no il componente -->
+<div class="messages-container" *ngIf="showMessages">
+  <!-- cclo una proprietà errors che conterrà una serie di stringhe di errori -->
+  <div class="message" *ngFor="let error of errors">
+    {{ error }}
+  </div>
+
+  <!-- abbiamo un close button, al click chiama la onClose() function -->
+  <mat-icon class="close" (click)="onClose()">close</mat-icon>
+</div>
