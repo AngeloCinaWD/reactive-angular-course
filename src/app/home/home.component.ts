@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   advancedCourses$: Observable<Course[]>;
 
   // vogliamo mostrare lo spinner di caricamento mentre vengono caricati i corsi dal BE
-  // per farlo inietiiamo il LoadingService
+  // per farlo iniettiamo il LoadingService
   constructor(
     private coursesService: CoursesService,
     private loadingService: LoadingService
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     //     finalize(() => this.loadingService.loadingOff())
     //   );
 
-    // tolgo il finalize(), questo Observable sarà solo un Corse[] ordinato
+    // tolgo il finalize(), questo Observable sarà solo un Course[] ordinato
     const courses$: Observable<Course[]> = this.coursesService
       .loadAllCourses()
       .pipe(
@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
     // utilizziamo lo spinner di caricamento con il metodo presente nel LoadingService, in modo da non stare a passare il finalize() a tutti gli Observable che utilizzeranno lo spinner di caricamento
     // il metodo ci ritornerà un Observable che sarà quello che andremo a sottoscrivere nel template
     // passiamo l'observable courses$ al metodo
+    // loadCourses$ sarà un Observable di type <Course[]>
     const loadCourses$ = this.loadingService.showLoaderUntilCompleted(courses$);
 
     // this.beginnerCourses$ = courses$.pipe(

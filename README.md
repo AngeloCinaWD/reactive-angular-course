@@ -33,3 +33,5 @@ Please use Node 18 long-term support (LTS) version.
 ## [of operator](https://rxjs.dev/api/index/function/of)
 
 ## [concatMap operator](https://rxjs.dev/api/index/function/concatMap)
+
+## [TypeScript Type Inference](https://medium.com/@sahil90085/typescript-type-inference-a-comprehensive-guide-40c888c6d78f)
