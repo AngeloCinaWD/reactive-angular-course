@@ -42,7 +42,9 @@
     </div>
   </mat-toolbar>
 
-  <!-- per far comunicare questo componente con un altro qualsiasi dell'app che non sia child-parent direct, si utilizza un service -->
+  <!-- in app component ho bisogno di un MessagesComponent con una sua istanza del MessagesService -->
+  <messages></messages>
+  <!-- per far comunicare questo componente con un altro qualsiasi dell'app che non sia child-parent direct, si utilizza un service, questo nell'app.component avrà una sua istanza del service -->
   <!-- creo il service in app/services ng g s services/loading --project reactive-angular-course --skip-tests -->
   <loading></loading>
 

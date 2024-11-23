@@ -35,3 +35,7 @@ Please use Node 18 long-term support (LTS) version.
 ## [concatMap operator](https://rxjs.dev/api/index/function/concatMap)
 
 ## [TypeScript Type Inference](https://medium.com/@sahil90085/typescript-type-inference-a-comprehensive-guide-40c888c6d78f)
+
+## [catchError operator](https://rxjs.dev/api/operators/catchError#catcherror)
+
+## [throwError function](https://rxjs.dev/api/index/function/throwError#throwerror)

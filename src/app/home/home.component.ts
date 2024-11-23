@@ -17,6 +17,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { CourseDialogComponent } from "../course-dialog/course-dialog.component";
 import { CoursesService } from "../services/courses.service";
 import { LoadingService } from "../services/loading.service";
+import { MessagesService } from "../services/messages.service";
 
 @Component({
   selector: "home",
@@ -27,9 +28,11 @@ export class HomeComponent implements OnInit {
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
 
+  // inietto il MessagesService
   constructor(
     private coursesService: CoursesService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private messagesService: MessagesService
   ) {}
 
   ngOnInit() {
@@ -39,7 +42,18 @@ export class HomeComponent implements OnInit {
   reloadCourses() {
     const courses$: Observable<Course[]> = this.coursesService
       .loadAllCourses()
-      .pipe(map((courses) => courses.sort(sortCoursesBySeqNo)));
+      // per catturare eventuali errori di un observable utilizziamo l'operatore RxJS catchError()
+      // questo operatore genera un nuovo observable con degli errori al posto dell'observable fallito
+      .pipe(
+        map((courses) => courses.sort(sortCoursesBySeqNo)),
+        // dobbiamo ritornare un observable, lo facciamo creando un error observable tramite throwError() function RxJS che emetterà l'observable con l'argomento passatogli e terminerà la propria vita
+        catchError((err) => {
+          const message = "Could not load courses";
+          this.messagesService.showErrors(message);
+          console.log(message, err);
+          return throwError(err);
+        })
+      );
 
     const loadCourses$ = this.loadingService.showLoaderUntilCompleted(courses$);
 
