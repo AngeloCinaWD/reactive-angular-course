@@ -29,3 +29,7 @@ Please use Node 18 long-term support (LTS) version.
 ## [rxjs BehaviorSubject](https://rxjs.dev/api/index/class/BehaviorSubject#behaviorsubject)
 
 ## [finalize operator](https://rxjs.dev/api/operators/finalize#finalize)
+
+## [of operator](https://rxjs.dev/api/index/function/of)
+
+## [concatMap operator](https://rxjs.dev/api/index/function/concatMap)

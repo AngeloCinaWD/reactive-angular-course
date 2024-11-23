@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import { concatMap, finalize, tap } from "rxjs/operators";
 
 @Injectable()
 export class LoadingService {
@@ -22,9 +23,20 @@ export class LoadingService {
   // questo observable all'inizio emette false e lo spinner non si visualizza
   loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
+  // questo metodo ritorna un observable, il tipo di observable che ritornerà non ha un type definito, lo avrà per inference di TS, restituirà un observable del type dell'observable che gli passiamo quando lo chiamiamo
   showLoaderUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
-    // per il momento ritorna undefined per non avere errore
-    return undefined;
+    // implementiamo il metodo in modo che lavori su qualsiasi tipo di observable passato al metodo
+    // per prima cosa creiamo un altro observable, utilizziamo il metodo RxJS of() che restituisce un observable dall'argomento passato
+    // l'observable iniziale ha valore null e con il tap operator indichiamo che il subject loadingSubject emetta un true
+    // poi tramite concatMap() operator trassformiamo ed emttiamo l'observable iniziale null in quello passato come argomento al metodo. il concatMap() emette tutti gli observable che gli passiamo, uno dopo l'altro, man mano che si completano. Quindi il primo essendo null si completa subito e viene emesso il secondo Observable fino al suo cpmpletamento o fino ad un eventuale error
+    // una volta emesso utilizziamo il finalize() operator per indicare che il subject loadingSubject emetta un false
+    // il valore che ritorniamo è un Observable del type di quello passato come argomento
+    // lo spinner di caricamento in questo modo è completamente dipendente dal lifecycle dell'observable passato come argomento
+    return of(null).pipe(
+      tap(() => this.loadingOn()),
+      concatMap(() => obs$),
+      finalize(() => this.loadingOff())
+    );
   }
 
   loadingOn() {
