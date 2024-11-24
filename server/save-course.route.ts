@@ -3,12 +3,12 @@ import { COURSES } from "./db-data";
 import { setTimeout } from "timers";
 
 export function saveCourse(req: Request, res: Response) {
-  /*
-  console.log("ERROR saving course!");
-  res.sendStatus(500);
-  return;
-
-  */
+  // // creo un errore volontario nel salvataggio del corso
+  // console.log("ERROR saving course!");
+  // // res.sendStatus(500);
+  // // se non passo il json con un message la proprietà error dell'oggetto di risposta sarà null
+  // res.status(500).json({ message: "random error occurred." });
+  // return;
 
   const id = req.params["id"],
     changes = req.body;
