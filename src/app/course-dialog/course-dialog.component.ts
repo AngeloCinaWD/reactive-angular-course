@@ -55,16 +55,11 @@ export class CourseDialogComponent implements AfterViewInit {
   save() {
     const changes = this.form.value;
 
-    // const saveCourse$ = this.coursesService.saveCourse(this.course.id, changes);
-    // per gestire gli errori utilizziamo il catchError() RxJS operator nell'observable che si ottiene chiamando il metodo saveCourse() del CoursesService
     const saveCourse$ = this.coursesService
       .saveCourse(this.course.id, changes)
       .pipe(
         catchError((err) => {
-          // creo il messaggio che voglio visualizzare
           const message: string = "Could not save course.";
-          console.log(message, err);
-          // chiamo il metodo in MessagesService e gli passo la stringa con l'errore da mostrare
           this.messagesService.showErrors(message);
           return throwError(err);
         })

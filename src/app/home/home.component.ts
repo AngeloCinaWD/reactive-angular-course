@@ -28,13 +28,16 @@ export class HomeComponent implements OnInit {
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
 
-  // inietto il MessagesService
   constructor(
     private coursesService: CoursesService,
     private loadingService: LoadingService,
     private messagesService: MessagesService
   ) {}
 
+  // finora la nostra app è stateless, cioè non tiene in memoria nulla dei dati che mostriamo, ma questi vengono ogni volta ricaricati tramite chiamate http al BE
+  // questo è possibile notarlo ad esempio uscendo dalla homepage verso un'altra pagina e tornando alla home si attiva lo spinner di caricamento che è impostato per attivarsi durante il fetching dei dati dal BE
+  // un continuo effettuarsi di chiamate http verso il be potrebbe, in alcune app, provocare dei rallentamenti e non avere così una ottimale UserExperience. In questi casi è utilie gestire i dati, implementare uno State Management, cioè memorizzare i dati provenienti dal BE in aree facilmente raggiungibili da tutte le componenti della nostra app
+  // implementare uno state management è consigliato in quei casi in cui si abbiano connessioni lente e tempi di risposta dilatati dal BE
   ngOnInit() {
     this.reloadCourses();
   }
@@ -42,17 +45,11 @@ export class HomeComponent implements OnInit {
   reloadCourses() {
     const courses$: Observable<Course[]> = this.coursesService
       .loadAllCourses()
-      // per catturare eventuali errori di un observable utilizziamo l'operatore RxJS catchError()
-      // questo operatore genera un nuovo observable con degli errori al posto dell'observable fallito
       .pipe(
         map((courses) => courses.sort(sortCoursesBySeqNo)),
-        // dobbiamo ritornare un observable, lo facciamo creando un error observable tramite throwError() function RxJS che emetterà l'observable con l'argomento passatogli e terminerà la propria vita
         catchError((err) => {
           const message = "Could not load courses";
-          // le stringhe passate come argomento al metodo saranno emesse dall'observable errors$ del service
           this.messagesService.showErrors(message, err.error.message);
-          // per vedere all'opera il pannello con gli errori andiamo a forzare un error nel BE, nella API per il caricamento dei corsi
-          // console.log(message, err);
           return throwError(err);
         })
       );
