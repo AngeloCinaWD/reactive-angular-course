@@ -49,8 +49,10 @@ export class HomeComponent implements OnInit {
         // dobbiamo ritornare un observable, lo facciamo creando un error observable tramite throwError() function RxJS che emetterà l'observable con l'argomento passatogli e terminerà la propria vita
         catchError((err) => {
           const message = "Could not load courses";
-          this.messagesService.showErrors(message);
-          console.log(message, err);
+          // le stringhe passate come argomento al metodo saranno emesse dall'observable errors$ del service
+          this.messagesService.showErrors(message, err.error.message);
+          // per vedere all'opera il pannello con gli errori andiamo a forzare un error nel BE, nella API per il caricamento dei corsi
+          // console.log(message, err);
           return throwError(err);
         })
       );

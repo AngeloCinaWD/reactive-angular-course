@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import { COURSES } from "./db-data";
 
 export function getAllCourses(req: Request, res: Response) {
-  /*
-    console.log("ERROR loading courses!");
-    res.status(500).json({message: 'random error occurred.'});
-    return;
- */
+  // forzo un errore nel BE durante il caricamento dei corsi
 
-  // qui poosso incrementare ilo tempo di risposta del BE, in modo da poter vedere all'opera lo spinner di caricamento
+  // console.log("ERROR loading courses!");
+  // res.status(500).json({ message: "random error occurred." });
+  // return;
+
+  // qui posso incrementare il tempo di risposta del BE, in modo da poter vedere all'opera lo spinner di caricamento
   setTimeout(() => {
     // COURSES è un oggetto che contiene tante proprietà con values un oggetto
     // l'object.values restituisce un array contenente solo i values, quindi in questo caso il risultao è un array con tanti oggetti Course
