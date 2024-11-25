@@ -39,3 +39,7 @@ Please use Node 18 long-term support (LTS) version.
 ## [catchError operator](https://rxjs.dev/api/operators/catchError#catcherror)
 
 ## [throwError function](https://rxjs.dev/api/index/function/throwError#throwerror)
+
+## [findIndex array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
+
+## [slice array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)

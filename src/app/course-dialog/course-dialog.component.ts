@@ -72,6 +72,8 @@ export class CourseDialogComponent implements AfterViewInit {
     // devo fare il subscribe in modo far funzionare il tutto
     // non serve a nulla gestire l'errore qui perchè chiudo la finestra immediatamente e l'errore non verrebbe mostrato
     this.coursesStore
+      // potrei passare qui il MessagesService istanziato qui in questo componente
+      // .saveCourse(this.course.id, changes, this.messagesService)
       .saveCourse(this.course.id, changes)
       // .pipe(
       //   catchError((err) => {
@@ -84,6 +86,9 @@ export class CourseDialogComponent implements AfterViewInit {
 
     // a questo punto chiudo la finestra di dialogo e passo un value qualsiasi al close(value) in modo da distinguerlo dal caso in cui chiudo la finestra di dialogo senza aver fatto operazioni di modifica
 
+    // se chiudo la finestra non visualizzo l'eventuale errore nella finestra stessa durante il salvataggio del corso
+    // lo visualizzo nell'app component perchè nel momento in cui chiudo la finestra mi si crea una istanza dell'app component che fa riferimento all'istanza del MessagesService registrata fra i providers dell'app.module
+    // per vedere l'errore nella finestra dovrei passare come argomento al metodo saveCourse() l'istanza del MessagesService che è registrato ed iniettato qui in questo componente e fare in modo che la finestra si chiuda solo se non è ritornato un errore dopo aver chiamato il backend
     this.dialogRef.close(changes);
 
     // non ho bisogno dello spinner di caricamento
