@@ -2,27 +2,35 @@
   <mat-card-title>Login</mat-card-title>
   <mat-card-content>
     <form [formGroup]="form" class="login-form">
-
+      <!-- questo form contiene 2 input, di type email e password -->
       <mat-form-field>
-
-        <input matInput type="email"
-               placeholder="Email"
-               formControlName="email">
-
+        <input
+          matInput
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+        />
       </mat-form-field>
 
       <mat-form-field>
-
-        <input matInput type="password"
-               placeholder="Password"
-               formControlName="password">
-
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
       </mat-form-field>
 
-      <button mat-raised-button color="primary"
-              (click)="login()"
-              [disabled]="!form.valid">Login</button>
-
+      <!-- al click del button chiamiamo il metodo login() in login.component.ts -->
+      <!-- il button è disabilitato fino a che il form non è valido -->
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="login()"
+        [disabled]="!form.valid"
+      >
+        Login
+      </button>
     </form>
   </mat-card-content>
 </mat-card>
