@@ -25,6 +25,7 @@ import { MessagesService } from "../services/messages.service";
   selector: "course-dialog",
   templateUrl: "./course-dialog.component.html",
   styleUrls: ["./course-dialog.component.css"],
+  // al momento abbiamo quindi 2 istanze per ognuno di questi service, una disponibile in tutta la root dell'app ed una per il course-dialog-component, questo porta ad una inconsistenza nei dati, infatti se ora modificassi un corso tornando alla home non lo vedrei aggiornato, dovrei ricaricare la pagina
   providers: [LoadingService, MessagesService],
 })
 export class CourseDialogComponent implements AfterViewInit {

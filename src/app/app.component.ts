@@ -6,9 +6,8 @@ import { MessagesService } from "./services/messages.service";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
-  // registro qui il LoadingService, questo vuol dire che questa istanza sarà visibile solo all'app component ed ai suoi child
-  // registro anche il MessagesService
-  providers: [LoadingService, MessagesService],
+  // devo registrare questi 2 services nell'app.module per poterli utilizzare negli store
+  // providers: [LoadingService, MessagesService],
 })
 export class AppComponent implements OnInit {
   constructor() {}
