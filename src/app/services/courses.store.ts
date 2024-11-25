@@ -68,4 +68,11 @@ export class CoursesStore {
       )
     );
   }
+
+  // implementiamo un metodo public per le modifiche ai corsi
+  // lo facciamo in Optimistic Way, cioè modifichiamo i dati direttamente in memoria nell'app ed andiamo ad emettere il nuovo valore, non attendiamo che vengano salvati nel BE prima di notificare il nuovo valore all'app
+  // non avremo bisogno quindi di mostrare uno spinner di caricamento, lo store avverrà in background
+  // 2 parametri: l'id del corso ed i changes
+  // ritornas un Observable di qualsiasi tipo perchè potrebbe essere un Course o un error
+  saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {}
 }
