@@ -6,8 +6,6 @@ import { MessagesService } from "./services/messages.service";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
-  // devo registrare questi 2 services nell'app.module per poterli utilizzare negli store
-  // providers: [LoadingService, MessagesService],
 })
 export class AppComponent implements OnInit {
   constructor() {}

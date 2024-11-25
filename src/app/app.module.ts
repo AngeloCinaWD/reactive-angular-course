@@ -79,8 +79,6 @@ import { MessagesService } from "./services/messages.service";
     MatMomentDateModule,
     ReactiveFormsModule,
   ],
-  // devo registrare qui i services per poterli utilizzare negli store
-  // al momento abbiamo quindi 2 istanze per ognuno di questi service, una disponibile in tutta la root dell'app ed una per il course-dialog-component
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     LoadingService,

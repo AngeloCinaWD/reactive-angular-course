@@ -22,11 +22,6 @@ import { CoursesStore } from "../services/courses.store";
   selector: "course-dialog",
   templateUrl: "./course-dialog.component.html",
   styleUrls: ["./course-dialog.component.css"],
-  // al momento abbiamo quindi 2 istanze per ognuno di questi service, una disponibile in tutta la root dell'app ed una per il course-dialog-component, questo porta ad una inconsistenza nei dati, infatti se ora modificassi un corso tornando alla home non lo vedrei aggiornato, dovrei ricaricare la pagina
-  // adattiamo il CourseDialogComponent in modo da utilizzare lo store dei dati anche per le modifiche, modificando i dati in memoria e non attendendo il salvataggio nel BE, Optimistic Way
-  // non abbiamo bisogno del CoursesService ma del CoursesStore che iniettiamo nel constructor
-  // non abbiamo bisogno del LoadingService perchè non si attende una risposta dal BE
-  // providers: [LoadingService, MessagesService],
   providers: [MessagesService],
 })
 export class CourseDialogComponent implements AfterViewInit {
@@ -39,8 +34,6 @@ export class CourseDialogComponent implements AfterViewInit {
     private dialogRef: MatDialogRef<CourseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) course: Course,
     private coursesStore: CoursesStore,
-    // private coursesService: CoursesService,
-    // private loadingService: LoadingService,
     private messagesService: MessagesService
   ) {
     this.course = course;
@@ -57,47 +50,9 @@ export class CourseDialogComponent implements AfterViewInit {
 
   save() {
     const changes = this.form.value;
+    this.coursesStore.saveCourse(this.course.id, changes).subscribe();
 
-    // const saveCourse$ = this.coursesService
-    //   .saveCourse(this.course.id, changes)
-    //   .pipe(
-    //     catchError((err) => {
-    //       const message: string = "Could not save course.";
-    //       this.messagesService.showErrors(message);
-    //       return throwError(err);
-    //     })
-    //   );
-
-    // chiamiamo il metodo saveCourse dello store, non salvo l'observable in una const, non mi serve perchè i dati sono nello store globale
-    // devo fare il subscribe in modo far funzionare il tutto
-    // non serve a nulla gestire l'errore qui perchè chiudo la finestra immediatamente e l'errore non verrebbe mostrato
-    this.coursesStore
-      // potrei passare qui il MessagesService istanziato qui in questo componente
-      // .saveCourse(this.course.id, changes, this.messagesService)
-      .saveCourse(this.course.id, changes)
-      // .pipe(
-      //   catchError((err) => {
-      //     const message: string = "Could not save course.";
-      //     this.messagesService.showErrors(message);
-      //     return throwError(err);
-      //   })
-      // )
-      .subscribe();
-
-    // a questo punto chiudo la finestra di dialogo e passo un value qualsiasi al close(value) in modo da distinguerlo dal caso in cui chiudo la finestra di dialogo senza aver fatto operazioni di modifica
-
-    // se chiudo la finestra non visualizzo l'eventuale errore nella finestra stessa durante il salvataggio del corso
-    // lo visualizzo nell'app component perchè nel momento in cui chiudo la finestra mi si crea una istanza dell'app component che fa riferimento all'istanza del MessagesService registrata fra i providers dell'app.module
-    // per vedere l'errore nella finestra dovrei passare come argomento al metodo saveCourse() l'istanza del MessagesService che è registrato ed iniettato qui in questo componente e fare in modo che la finestra si chiuda solo se non è ritornato un errore dopo aver chiamato il backend
     this.dialogRef.close(changes);
-
-    // non ho bisogno dello spinner di caricamento
-
-    // this.loadingService
-    //   .showLoaderUntilCompleted(saveCourse$)
-    //   .subscribe((val) => {
-    //     this.dialogRef.close(val);
-    //   });
   }
 
   close() {
