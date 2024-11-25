@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private authStore: AuthStore
   ) {
     this.form = fb.group({
-      email: ["test@angular-university.i", [Validators.required]],
+      email: ["test@angular-university.io", [Validators.required]],
       password: ["test", [Validators.required]],
     });
   }
@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       // se il login ha successo navighiamo verso la pagina con i Course
       () => this.router.navigateByUrl("/courses"),
       // se fallisce avrò un error ed avviso con un alert()
+      // questo dovrebbe funzionare come errore perchè il BE restituisce uno status code 403, un observable dell'HttpClient riconosce come errore tutto quello che non è 200, forse
       (err) => {
         console.log(err);
         alert("Login failed");
