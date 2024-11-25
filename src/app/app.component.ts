@@ -9,13 +9,11 @@ import { AuthStore } from "./services/auth.store";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  // iniettiamo l'AuthStore
   constructor(public authStore: AuthStore) {}
 
   ngOnInit() {}
 
   logout() {
-    // per il logout basta chiamare questo metodo
     this.authStore.logout();
   }
 }
