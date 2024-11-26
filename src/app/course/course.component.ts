@@ -55,5 +55,8 @@ export class CourseComponent implements OnInit {
     // una volta ottenuto l'id chiamiamo il metodo loadCourseById del CoursesService passandoglielo come argomento
     // con il return del metodo andiamo a valorizzare l'observable Course$
     this.course$ = this.coursesService.loadCourseById(courseId);
+
+    // dobbiamo fetchare le lessons relative al corso e valorizzare l'observable lessons$ in modo da poterlo sottoscrivere nel template
+    this.lessons$ = this.coursesService.loadAllCourseLessons(courseId);
   }
 }

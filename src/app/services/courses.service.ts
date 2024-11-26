@@ -44,4 +44,21 @@ export class CoursesService {
       .get<Course>(`/api/courses/${courseId}`)
       .pipe(shareReplay());
   }
+
+  // metodo per fetchare le lessons di un corso tramite id del corso
+  loadAllCourseLessons(courseId: number): Observable<Lesson[]> {
+    // è una chiamata get in cui dobbiamo passare come query params l'id del corso (che dobbiamo convertire in stringa) e passiamo un pageSize alto per essere sicuri di riceverle tutte
+    return this.http
+      .get<Lesson[]>("/api/lessons", {
+        params: {
+          courseId: courseId.toString(),
+          pageSize: "10000",
+        },
+      })
+      .pipe(
+        // c'è sempre da estrapolare la property payload
+        map((response) => response["payload"]),
+        shareReplay()
+      );
+  }
 }
