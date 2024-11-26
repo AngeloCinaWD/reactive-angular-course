@@ -82,15 +82,12 @@
     </ng-container>
   </ng-container>
 
-  <!-- all'interno dell'ng-template ci sono un button per tornare indietro alla pagina di ricerca ed un LessonComponent per visualizzare i dettagli della lesson-->
   <ng-template #detail>
-    <!-- al click di questo button viene chiamato il metodo onBackToSearch() -->
     <button mat-raised-button class="back-btn" (click)="onBackToSearch()">
       <mat-icon>arrow_back_ios</mat-icon>
       Back to Search
     </button>
 
-    <!-- per poter visualizzare la lesson dobbiamo passare al LessonComponent l'activeLesson attraverso una input property -->
     <lesson [lesson]="activeLesson"></lesson>
   </ng-template>
 </div>

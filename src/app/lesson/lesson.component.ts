@@ -7,7 +7,6 @@ import { Lesson } from "../model/lesson";
   styleUrls: ["./lesson.component.css"],
 })
 export class LessonComponent {
-  // input property che riceve la lesson da renderizzare
   @Input()
   lesson: Lesson;
 }
