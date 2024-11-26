@@ -41,7 +41,6 @@ export class AuthStore {
         this.subject.next(user);
         localStorage.setItem(AUTH_DATA, JSON.stringify(user));
       }),
-      // voglio gestire l'errore qui, blocco qui e mostro il pannello con l'errore
       catchError((err) => {
         const message = "Login non riuscito";
         this.messagesService.showErrors(message);

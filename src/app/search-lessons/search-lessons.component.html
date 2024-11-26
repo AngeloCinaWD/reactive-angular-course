@@ -1,11 +1,21 @@
-<div class="course">
+<!-- lo user inserisce nell'input quello che vuole cercare e clicca sul search button -->
+<!-- viene in questo modo triggerata una chiamata al BE che fa determinate cose: cerca nelle lezioni dei corsi la parola inserita ad esempio nei titoli delle lezioni -->
+<!-- la lista delle lezioni trovate viene mostrata nella tabella -->
+<!-- cliccando su una lezione viene mostrata a schermo -->
+<!-- ci sarà un button per tornare alla ricerca coi risultati  -->
+<!-- il caso in cui abbiamo una serie di risultati, con alcuni dettagli, clicchiamo su uno e lo vediamo completo in un componente separato è denominato MASTER-DETAIL UI INTERFACE PATTERN, i master sarebbe la tabella generale, il detail le info dettagliate di ogni elemento mostrate separatamente  -->
+<!-- con questo pattern è molto utile avere uno store dei dati perchè ogni chiamata al BE potrebbe prendere molto tempo, quindi quando si torna al master si ricaricano i dati memorizzati nello store tramite uno state management -->
 
+<div class="course">
   <h2>Search All Lessons</h2>
 
   <mat-form-field class="search-bar">
-
-    <input matInput placeholder="Type your search" #searchInput autocomplete="off">
-
+    <input
+      matInput
+      placeholder="Type your search"
+      #searchInput
+      autocomplete="off"
+    />
   </mat-form-field>
 
   <button class="search" mat-raised-button color="primary">
@@ -13,28 +23,17 @@
     Search
   </button>
 
-    <table class="lessons-table mat-elevation-z7">
-
-      <thead>
+  <table class="lessons-table mat-elevation-z7">
+    <thead>
       <th>#</th>
       <th>Description</th>
       <th>Duration</th>
-      </thead>
+    </thead>
 
-      <!-- tr class="lesson-row">
+    <!-- tr class="lesson-row">
         <td class="seqno-cell">{{lesson.seqNo}}</td>
         <td class="description-cell">{{lesson.description}}</td>
         <td class="duration-cell">{{lesson.duration}}</td>
       </tr -->
-
-    </table>
-
-
-
+  </table>
 </div>
-
-
-
-
-
-

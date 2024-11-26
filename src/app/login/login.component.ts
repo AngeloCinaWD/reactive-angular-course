@@ -31,13 +31,8 @@ export class LoginComponent implements OnInit {
   login() {
     const val = this.form.value;
 
-    this.authStore.login(val.email, val.password).subscribe(
-      () => this.router.navigateByUrl("/courses")
-      // l'errore lo gestisco nell'authstore, in modo da utilizzare il MessagesService e far apparire un messaggio di errore nel pannello
-      // (err) => {
-      //   console.log(err);
-      //   alert("Login failed");
-      // }
-    );
+    this.authStore
+      .login(val.email, val.password)
+      .subscribe(() => this.router.navigateByUrl("/courses"));
   }
 }
