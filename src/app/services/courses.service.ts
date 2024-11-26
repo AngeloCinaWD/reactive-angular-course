@@ -37,4 +37,11 @@ export class CoursesService {
         shareReplay()
       );
   }
+
+  // metodo per fetchare un corso dal BE secondo l'id
+  loadCourseById(courseId: number): Observable<Course> {
+    return this.http
+      .get<Course>(`/api/courses/${courseId}`)
+      .pipe(shareReplay());
+  }
 }
