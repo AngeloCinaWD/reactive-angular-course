@@ -10,8 +10,6 @@ import { filter, tap } from "rxjs/operators";
   styleUrl: "./courses-card-list.component.css",
 })
 export class CoursesCardListComponent {
-  // le input properties sono uno dei modi per far arrivare dati ad un componente
-  // con la OnPush change detection angular va a controllare se i valori di queste sono cambiati o no e se il componente deve essere rerenderizzato o no
   @Input()
   courses: Course[] = [];
 
@@ -37,8 +35,6 @@ export class CoursesCardListComponent {
         filter((val) => !!val),
         tap(() => this.coursesChanged.emit())
       )
-      // praticamente nel subscribe non faccio niente
-      // .subscribe((val) => console.log(val));
       .subscribe();
   }
 }

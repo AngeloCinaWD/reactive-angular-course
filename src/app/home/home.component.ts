@@ -20,8 +20,6 @@ import { LoadingService } from "../services/loading.service";
 import { MessagesService } from "../services/messages.service";
 import { CoursesStore } from "../services/courses.store";
 
-// possiamo quindi applicare la OnPush change detection in quei componenti che utilizzano Observable o Input properties
-// lo facciamo andando a definire nel decorator la proprietà changeDetection
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",

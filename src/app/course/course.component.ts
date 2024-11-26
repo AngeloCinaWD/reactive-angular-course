@@ -37,11 +37,6 @@ interface CourseData {
   lessons: Lesson[];
 }
 
-// di default Angular controlla nei template di tutti i componenti se qualcosa è cambiato nelle template expressions (le parti non statiche, quelle date da javascript) per rirenderizzare un componente o no
-// normalmente la change detection di default va benissimo per la maggior parte delle app, il problema si ha in quelle app molto grandi che hanno tantissime template expression e controllarle tutte richiede tempo per angular
-// un modo alternativo di impostare la change detection è settarla su OnPush change detection, angular andrà a controllare solo se i dati che immettiamo sono cambiati o no ed andrà a renderizzare nuovamente solo quella parte
-// un modo per iniettare nuovi dati sono ad esempio le @Input properties
-// un altro modo per iniettare nuovi dati un componente, e che viene controllato con la OnPush change detection, si ha quando un OPbservable emette un nuovo valore
 @Component({
   selector: "course",
   templateUrl: "./course.component.html",
