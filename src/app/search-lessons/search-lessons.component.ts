@@ -37,6 +37,9 @@ export class SearchLessonsComponent implements OnInit {
   // possiamo quindi immagazinare i dati direttamente nelle proprietà del componente padre per poterli utilizzare tranquillamente nei suoi child
   searchResults$: Observable<Lesson[]>;
 
+  // proprietà che si valorizza coi dati della lesson cliccata nel template
+  activeLesson: Lesson;
+
   // iniettiamo il CoursesService
   constructor(private coursesService: CoursesService) {}
 
@@ -47,5 +50,15 @@ export class SearchLessonsComponent implements OnInit {
   // con l'observable ottenuto con la chiamata http verso il BE valorizziamo l'observable searchResults$
   onSearch(value: string) {
     this.searchResults$ = this.coursesService.searchLessons(value);
+  }
+
+  // questo metodo va a valorizzare la proprietà activeLesson con la lesson passata come argomento
+  openLesson(lesson: Lesson) {
+    this.activeLesson = lesson;
+  }
+
+  // questo metodo deve far nascondere il detail della lesson e deve far ricomparire la tabella coi risultati
+  onBackToSearch() {
+    this.activeLesson = null;
   }
 }

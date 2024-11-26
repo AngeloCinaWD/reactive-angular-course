@@ -32,24 +32,63 @@
 
   <!-- per mostrare i risultati ottenuti col search nella tabella, dobbiamo intanto sottoscriverci all'observable searchResults$ -->
   <!-- all'interno dell'ng-container ci mettiamo la tabella-->
-  <ng-container *ngIf="searchResults$ | async as lessons">
+  <!-- <ng-container *ngIf="searchResults$ | async as lessons">
     <table class="lessons-table mat-elevation-z7">
       <thead>
         <th>#</th>
         <th>Description</th>
         <th>Duration</th>
-      </thead>
-      <!-- cicliamo l'html corrispondente ad una riga della tabella per quante sono le lessons -->
-      <!-- <tr class="lesson-row">
+      </thead> -->
+  <!-- cicliamo l'html corrispondente ad una riga della tabella per quante sono le lessons -->
+  <!-- <tr class="lesson-row">
         <td class="seqno-cell">{{lesson.seqNo}}</td>
         <td class="description-cell">{{lesson.description}}</td>
         <td class="duration-cell">{{lesson.duration}}</td>
     </tr> -->
-      <tr class="lesson-row" *ngFor="let lesson of lessons">
+  <!-- al click su ogni row vogliamo mostrare il dettaglio della lesson, andando a popolare la property activeLesson coi dettagli della lesson -->
+  <!-- al click sulla row chiamiamo il metodo openLesson() che riceve come parametro l'oggetto lesson corrispondente -->
+  <!-- <tr
+        class="lesson-row"
+        *ngFor="let lesson of lessons"
+        (click)="openLesson(lesson)"
+      >
         <td class="seqno-cell">{{ lesson.seqNo }}</td>
         <td class="description-cell">{{ lesson.description }}</td>
         <td class="duration-cell">{{ lesson.duration }}</td>
       </tr>
     </table>
+  </ng-container> -->
+
+  <!-- per switchare fra lesson singola e tabella utilizziamo un altro ng-container che ha come condizione di renderizzazione se la proprietà activeLesson è popolata o no -->
+  <!-- se non lo è si deve vedere la tabella, altrimenti si deve renderizzare l'ng-template detail -->
+  <ng-container *ngIf="!activeLesson; else detail">
+    <ng-container *ngIf="searchResults$ | async as lessons">
+      <table class="lessons-table mat-elevation-z7">
+        <thead>
+          <th>#</th>
+          <th>Description</th>
+          <th>Duration</th>
+        </thead>
+        <tr
+          class="lesson-row"
+          *ngFor="let lesson of lessons"
+          (click)="openLesson(lesson)"
+        >
+          <td class="seqno-cell">{{ lesson.seqNo }}</td>
+          <td class="description-cell">{{ lesson.description }}</td>
+          <td class="duration-cell">{{ lesson.duration }}</td>
+        </tr>
+      </table>
+    </ng-container>
   </ng-container>
+
+  <!-- all'interno dell'ng-template ci sono un button per tornare indietro alla pagina di ricerca ed un LessonComponent per visualizzare i dettagli della lesson-->
+  <ng-template #detail>
+    <!-- al click di questo button viene chiamato il metodo onBackToSearch() -->
+    <button mat-raised-button class="back-btn" (click)="onBackToSearch()">
+      <mat-icon>arrow_back_ios</mat-icon>
+      Back to Search
+    </button>
+    <lesson></lesson>
+  </ng-template>
 </div>
