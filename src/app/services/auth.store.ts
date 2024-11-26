@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { User } from "../model/user";
-import { BehaviorSubject, Observable } from "rxjs";
-import { map, shareReplay, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, map, shareReplay, tap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { json } from "body-parser";
+import { MessagesService } from "./messages.service";
 
 const AUTH_DATA: string = "auth_data";
 
@@ -19,7 +20,10 @@ export class AuthStore {
 
   isLoggedOut$: Observable<boolean>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private messagesService: MessagesService
+  ) {
     this.isLoggedIn$ = this.user$.pipe(map((user) => !!user));
 
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
@@ -36,6 +40,12 @@ export class AuthStore {
       tap((user) => {
         this.subject.next(user);
         localStorage.setItem(AUTH_DATA, JSON.stringify(user));
+      }),
+      // voglio gestire l'errore qui, blocco qui e mostro il pannello con l'errore
+      catchError((err) => {
+        const message = "Login non riuscito";
+        this.messagesService.showErrors(message);
+        return throwError(err);
       }),
       shareReplay()
     );
