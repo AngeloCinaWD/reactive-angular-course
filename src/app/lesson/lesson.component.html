@@ -1,1 +1,16 @@
-<p>lesson works!</p>
+<div class="lesson-detail">
+  <h3>{{ lesson.description }}</h3>
+
+  <h5>Duration: {{ lesson.duration }}</h5>
+
+  <!-- il pipe safeUrl è importante perchè mi permette di dichiarare sicuro l'url altrimenti angular non mi fa fare la connessione al video su youtube -->
+  <!-- questo Pipe non è di angular è un custom pipe -->
+  <iframe
+    width="400"
+    height="220"
+    frameborder="0"
+    allowfullscreen
+    [src]="'https://www.youtube.com/embed/' + lesson?.videoId | safeUrl"
+  >
+  </iframe>
+</div>

@@ -89,6 +89,8 @@
       <mat-icon>arrow_back_ios</mat-icon>
       Back to Search
     </button>
-    <lesson></lesson>
+
+    <!-- per poter visualizzare la lesson dobbiamo passare al LessonComponent l'activeLesson attraverso una input property -->
+    <lesson [lesson]="activeLesson"></lesson>
   </ng-template>
 </div>

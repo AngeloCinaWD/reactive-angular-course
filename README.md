@@ -43,3 +43,5 @@ Please use Node 18 long-term support (LTS) version.
 ## [findIndex array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
 
 ## [slice array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+## [safeUrl pipe](https://angular.dev/api/platform-browser/SafeUrl)
