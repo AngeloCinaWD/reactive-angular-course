@@ -37,6 +37,11 @@ interface CourseData {
   lessons: Lesson[];
 }
 
+// di default Angular controlla nei template di tutti i componenti se qualcosa è cambiato nelle template expressions (le parti non statiche, quelle date da javascript) per rirenderizzare un componente o no
+// normalmente la change detection di default va benissimo per la maggior parte delle app, il problema si ha in quelle app molto grandi che hanno tantissime template expression e controllarle tutte richiede tempo per angular
+// un modo alternativo di impostare la change detection è settarla su OnPush change detection, angular andrà a controllare solo se i dati che immettiamo sono cambiati o no ed andrà a renderizzare nuovamente solo quella parte
+// un modo per iniettare nuovi dati sono ad esempio le @Input properties
+// un altro modo per iniettare nuovi dati un componente, e che viene controllato con la OnPush change detection, si ha quando un OPbservable emette un nuovo valore
 @Component({
   selector: "course",
   templateUrl: "./course.component.html",
@@ -53,16 +58,12 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
     const courseId = parseInt(this.route.snapshot.paramMap.get("courseId"));
 
-    // implementato così avremo sempre un momento in cui la pagina è bianca perchè il combineLatest() aspetta che tutti e 2 gli observables siano completati ed emettano un valore per emettere un valore del nuovo observable che crea
-    // utilizzando sui 2 observables l'operatore RxJS startWith(), forziamo l'observable ad emettere un valore iniziale, in questo modo combineLatest() inizierà ad emettere il suo e nella pagina si inizierà a vedere qualcosa
     const course$ = this.coursesService
       .loadCourseById(courseId)
-      // gli facciamo emettere null inizialmente
       .pipe(startWith(null));
 
     const lessons$ = this.coursesService
       .loadAllCourseLessons(courseId)
-      // gli facciamo emettere un array vuoto inizialmente
       .pipe(startWith([]));
 
     this.data$ = combineLatest([course$, lessons$]).pipe(

@@ -1,43 +1,13 @@
-<!-- in questo modo abbiamo degli ng-container annidati che controllano uno dopo l'altro se l'html deve essere renderizzato -->
-<!-- questo comporta un ritardo nella renderizzazione, quindi sullo schermo si attende un po' per vedere qualcosa, perchè devono essere effettuate le sottoscrizioni e quindi le chiamate http verso il BE una dopo l'altra attendendo l'esito positivo della precedente -->
-<!-- per evitare si implementa il SINGLE DATA OBSERVABLE PATTERN -->
-<!-- utilizziamo un solo ng-container con sottoscrizione all'observable data -->
-<!-- <ng-container *ngIf="course$ | async as course">
-  <ng-container *ngIf="lessons$ | async as lessons">
-    <div class="course">
-      <h2>{{ course?.description }}</h2>
-
-      <img class="course-thumbnail" [src]="course?.iconUrl" />
-
-      <table class="lessons-table mat-elevation-z7">
-        <thead>
-          <th>#</th>
-          <th>Description</th>
-          <th>Duration</th>
-        </thead>
-
-        <tr class="lesson-row" *ngFor="let lesson of lessons">
-          <td class="seqno-cell">{{ lesson.seqNo }}</td>
-          <td class="description-cell">{{ lesson.description }}</td>
-          <td class="duration-cell">{{ lesson.duration }}</td>
-        </tr>
-      </table>
-    </div>
-  </ng-container>
-</ng-container> -->
 <ng-container *ngIf="data$ | async as data">
   <div class="course">
     <h2>{{ data.course?.description }}</h2>
 
-    <!-- per evitare che appaia la broken image facciamo che si visualizzi solo se il course è stato caricato -->
     <img
       class="course-thumbnail"
       [src]="data.course?.iconUrl"
       *ngIf="data.course"
     />
 
-    <!-- dato che il valore iniziale di lessons è un array vuoto questa tabella apparirà inizialmente vuota -->
-    <!-- per farla apparire solo quando ci saranno dati nelòl'array utilizziamo un ngIf che ne controlla la lunghezza -->
     <table class="lessons-table mat-elevation-z7" *ngIf="data.lessons.length">
       <thead>
         <th>#</th>
