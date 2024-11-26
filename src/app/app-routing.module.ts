@@ -20,8 +20,6 @@ const routes: Routes = [
     component: AboutComponent,
   },
   {
-    // rotta per visualizzare il Course
-    // la seconda parte della rotta /:courseId è una path variable che ci permetterà di estrarre l'id del corso da fetchare dal BE
     path: "courses/:courseId",
     component: CourseComponent,
   },

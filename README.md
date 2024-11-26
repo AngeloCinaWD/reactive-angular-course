@@ -30,7 +30,7 @@ Please use Node 18 long-term support (LTS) version.
 
 ## [finalize operator](https://rxjs.dev/api/operators/finalize#finalize)
 
-## [of operator](https://rxjs.dev/api/index/function/of)
+## [of function](https://rxjs.dev/api/index/function/of)
 
 ## [concatMap operator](https://rxjs.dev/api/index/function/concatMap)
 
@@ -45,3 +45,5 @@ Please use Node 18 long-term support (LTS) version.
 ## [slice array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
 
 ## [safeUrl pipe](https://angular.dev/api/platform-browser/SafeUrl)
+
+## [combineLatest function](https://rxjs.dev/api/index/function/combineLatest#combinelatest)
