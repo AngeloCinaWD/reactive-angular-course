@@ -22,9 +22,10 @@ import {
 } from "rxjs/operators";
 import { merge, fromEvent, Observable, concat } from "rxjs";
 import { Lesson } from "../model/lesson";
+import { CoursesService } from "../services/courses.service";
 
 // MASTER DETAIL USER INTERFACE PATTERN
-// unesempio di questo pattern si ha quando ad esempio facciamo una ricerca, abbiamo una serie di risultati e una vista dei dettagli per ogni risultato
+// unesempio di questo pattern si ha quando ad esempio facciamo una ricerca, abbiamo una serie di risultati (master table) e una vista dei dettagli per ogni risultato
 
 @Component({
   selector: "course",
@@ -32,7 +33,19 @@ import { Lesson } from "../model/lesson";
   styleUrls: ["./search-lessons.component.css"],
 })
 export class SearchLessonsComponent implements OnInit {
-  constructor() {}
+  // immagazianiamo i risultati della ricerca direttamente qui, in un Obsevable di type Lesson[], cioè un array di lezioni
+  // possiamo quindi immagazinare i dati direttamente nelle proprietà del componente padre per poterli utilizzare tranquillamente nei suoi child
+  searchResults$: Observable<Lesson[]>;
+
+  // iniettiamo il CoursesService
+  constructor(private coursesService: CoursesService) {}
 
   ngOnInit() {}
+
+  // riceve una stringa
+  // per effettuare la chiamata al BE chiamiamo un metodo del CoursesService
+  // con l'observable ottenuto con la chiamata http verso il BE valorizziamo l'observable searchResults$
+  onSearch(value: string) {
+    this.searchResults$ = this.coursesService.searchLessons(value);
+  }
 }

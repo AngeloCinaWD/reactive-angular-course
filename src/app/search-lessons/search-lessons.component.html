@@ -3,12 +3,13 @@
 <!-- la lista delle lezioni trovate viene mostrata nella tabella -->
 <!-- cliccando su una lezione viene mostrata a schermo -->
 <!-- ci sarà un button per tornare alla ricerca coi risultati  -->
-<!-- il caso in cui abbiamo una serie di risultati, con alcuni dettagli, clicchiamo su uno e lo vediamo completo in un componente separato è denominato MASTER-DETAIL UI INTERFACE PATTERN, i master sarebbe la tabella generale, il detail le info dettagliate di ogni elemento mostrate separatamente  -->
+<!-- il caso in cui abbiamo una serie di risultati, con alcuni dettagli, clicchiamo su uno e lo vediamo completo in un componente separato è denominato MASTER-DETAIL UI INTERFACE PATTERN, il master sarebbe la tabella generale, il detail le info dettagliate di ogni elemento mostrate separatamente (in un LessonComponent)  -->
 <!-- con questo pattern è molto utile avere uno store dei dati perchè ogni chiamata al BE potrebbe prendere molto tempo, quindi quando si torna al master si ricaricano i dati memorizzati nello store tramite uno state management -->
 
 <div class="course">
   <h2>Search All Lessons</h2>
 
+  <!-- questo input ha una template reference #searchInput che utilizzeremo per passare il suo valore al search-lessons.component.ts -->
   <mat-form-field class="search-bar">
     <input
       matInput
@@ -18,22 +19,37 @@
     />
   </mat-form-field>
 
-  <button class="search" mat-raised-button color="primary">
+  <!-- al click di questo button passiamo il value di #searchInput al metodo onSearch() -->
+  <button
+    class="search"
+    mat-raised-button
+    color="primary"
+    (click)="onSearch(searchInput.value)"
+  >
     <mat-icon>search</mat-icon>
     Search
   </button>
 
-  <table class="lessons-table mat-elevation-z7">
-    <thead>
-      <th>#</th>
-      <th>Description</th>
-      <th>Duration</th>
-    </thead>
-
-    <!-- tr class="lesson-row">
+  <!-- per mostrare i risultati ottenuti col search nella tabella, dobbiamo intanto sottoscriverci all'observable searchResults$ -->
+  <!-- all'interno dell'ng-container ci mettiamo la tabella-->
+  <ng-container *ngIf="searchResults$ | async as lessons">
+    <table class="lessons-table mat-elevation-z7">
+      <thead>
+        <th>#</th>
+        <th>Description</th>
+        <th>Duration</th>
+      </thead>
+      <!-- cicliamo l'html corrispondente ad una riga della tabella per quante sono le lessons -->
+      <!-- <tr class="lesson-row">
         <td class="seqno-cell">{{lesson.seqNo}}</td>
         <td class="description-cell">{{lesson.description}}</td>
         <td class="duration-cell">{{lesson.duration}}</td>
-      </tr -->
-  </table>
+    </tr> -->
+      <tr class="lesson-row" *ngFor="let lesson of lessons">
+        <td class="seqno-cell">{{ lesson.seqNo }}</td>
+        <td class="description-cell">{{ lesson.description }}</td>
+        <td class="duration-cell">{{ lesson.duration }}</td>
+      </tr>
+    </table>
+  </ng-container>
 </div>
