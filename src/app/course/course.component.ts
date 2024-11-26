@@ -32,9 +32,6 @@ import {
 import { Lesson } from "../model/lesson";
 import { CoursesService } from "../services/courses.service";
 
-// per il Single Data Observable Pattern abbiamo bisogno di implementare un'interface in cui indichiamo tutto quello che ci serve nel template
-// potremmo fare un file .ts a parte ed esportare l'interface, ma la implementiamo direttamente qui nel componente perchè la utilizzeremo solo qui
-// il template ha bisogno di un Course e di un Lesson[]
 interface CourseData {
   course: Course;
   lessons: Lesson[];
@@ -46,11 +43,6 @@ interface CourseData {
   styleUrls: ["./course.component.css"],
 })
 export class CourseComponent implements OnInit {
-  // eliminiamo i 2 observable separati e ne definiamo uno che sarà type CourseData interface
-  // course$: Observable<Course>;
-
-  // lessons$: Observable<Lesson[]>;
-
   data$: Observable<CourseData>;
 
   constructor(
@@ -61,22 +53,19 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
     const courseId = parseInt(this.route.snapshot.paramMap.get("courseId"));
 
-    // per valorizzare l'observable data$ dobbiamo combinare i 2 observables che avevamo in precedenza
-    // salviamo gli observables in 2 const
-    // this.course$ = this.coursesService.loadCourseById(courseId);
+    // implementato così avremo sempre un momento in cui la pagina è bianca perchè il combineLatest() aspetta che tutti e 2 gli observables siano completati ed emettano un valore per emettere un valore del nuovo observable che crea
+    // utilizzando sui 2 observables l'operatore RxJS startWith(), forziamo l'observable ad emettere un valore iniziale, in questo modo combineLatest() inizierà ad emettere il suo e nella pagina si inizierà a vedere qualcosa
+    const course$ = this.coursesService
+      .loadCourseById(courseId)
+      // gli facciamo emettere null inizialmente
+      .pipe(startWith(null));
 
-    // this.lessons$ = this.coursesService.loadAllCourseLessons(courseId);
+    const lessons$ = this.coursesService
+      .loadAllCourseLessons(courseId)
+      // gli facciamo emettere un array vuoto inizialmente
+      .pipe(startWith([]));
 
-    const course$ = this.coursesService.loadCourseById(courseId);
-
-    const lessons$ = this.coursesService.loadAllCourseLessons(courseId);
-
-    // utilizziamo la combineLatest() function di RxJS al quale passiamo in un array gli observables che vogliamo combinare
-    // questa funzione restituisce un observable con una tupla di TS, un array in cui l'elemento con index 0 sarà il primo observable passato nell'array, index 1 il secondo e così via
     this.data$ = combineLatest([course$, lessons$]).pipe(
-      // il type restituito non è quello che vogliamo
-      // tramite map operator prendiamo l'array e ne destrutturiamo il contenuto e ritorniamo un oggetto con questi 2 argomenti ottenuti tramite destrutturazione della tupla ottenuta con il combineLatest
-      // in questo modo abbiamo un oggetto che rispetta l'interface CourseData
       map(([course, lessons]) => {
         return { course, lessons };
       }),

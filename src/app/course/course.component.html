@@ -29,9 +29,16 @@
   <div class="course">
     <h2>{{ data.course?.description }}</h2>
 
-    <img class="course-thumbnail" [src]="data.course?.iconUrl" />
+    <!-- per evitare che appaia la broken image facciamo che si visualizzi solo se il course è stato caricato -->
+    <img
+      class="course-thumbnail"
+      [src]="data.course?.iconUrl"
+      *ngIf="data.course"
+    />
 
-    <table class="lessons-table mat-elevation-z7">
+    <!-- dato che il valore iniziale di lessons è un array vuoto questa tabella apparirà inizialmente vuota -->
+    <!-- per farla apparire solo quando ci saranno dati nelòl'array utilizziamo un ngIf che ne controlla la lunghezza -->
+    <table class="lessons-table mat-elevation-z7" *ngIf="data.lessons.length">
       <thead>
         <th>#</th>
         <th>Description</th>
