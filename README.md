@@ -47,3 +47,5 @@ Please use Node 18 long-term support (LTS) version.
 ## [safeUrl pipe](https://angular.dev/api/platform-browser/SafeUrl)
 
 ## [combineLatest function](https://rxjs.dev/api/index/function/combineLatest#combinelatest)
+
+### Per motivi tecnici ho settato la porta per il web development a 8027 nel package.json e la porta del server a 9800 in server.ts. Nel proxy.json ho cambiato il valore della porta nell'url del server.

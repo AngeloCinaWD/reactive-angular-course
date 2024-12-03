@@ -21,7 +21,10 @@ export class LoginComponent implements OnInit {
     private authStore: AuthStore
   ) {
     this.form = fb.group({
-      email: ["test@angular-university.io", [Validators.required]],
+      email: [
+        "test@angular-university.io",
+        [Validators.required, Validators.email],
+      ],
       password: ["test", [Validators.required]],
     });
   }
@@ -34,5 +37,11 @@ export class LoginComponent implements OnInit {
     this.authStore
       .login(val.email, val.password)
       .subscribe(() => this.router.navigateByUrl("/courses"));
+  }
+
+  get email() {
+    console.log(this.form.controls["email"]);
+
+    return this.form.controls["email"];
   }
 }

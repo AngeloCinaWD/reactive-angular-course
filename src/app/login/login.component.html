@@ -9,6 +9,13 @@
           placeholder="Email"
           formControlName="email"
         />
+
+        @if (email.errors?.required) {
+        <mat-error> Email is required </mat-error>
+        }
+        <!--  -->
+        @else if (email.errors?.email) {
+        <mat-error> Insert a valid email </mat-error>}
       </mat-form-field>
 
       <mat-form-field>
