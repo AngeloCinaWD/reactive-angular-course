@@ -48,4 +48,8 @@ Please use Node 18 long-term support (LTS) version.
 
 ## [combineLatest function](https://rxjs.dev/api/index/function/combineLatest#combinelatest)
 
+## [rest parameters arguments function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
+
+## [spread sintax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
 ### Per motivi tecnici ho settato la porta per il web development a 8027 nel package.json e la porta del server a 9800 in server.ts. Nel proxy.json ho cambiato il valore della porta nell'url del server.
